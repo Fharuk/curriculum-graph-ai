@@ -10,14 +10,14 @@ from firebase_admin import auth as firebase_auth
 from agent_core import AgentCore
 from curriculum_manager import CurriculumManager
 
-# --- CONFIGURATION & LOGGING ---
+#  CONFIGURATION & LOGGING 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 DEFAULT_MODEL = 'gemini-2.5-flash-preview-09-2025' 
 PASS_THRESHOLD = 0.70 
 
-# --- FIREBASE INTEGRATION (P1: Persistence & LTM) ---
+#  FIREBASE INTEGRATION (P1: Persistence & LTM) 
 
 def init_firebase() -> tuple[Optional[firestore.client], str]:
     """Initializes Firebase Admin SDK and authenticates the user."""
@@ -89,7 +89,7 @@ def save_curriculum_state(db: firestore.client, user_id: str, manager: Curriculu
     except Exception as e:
         logger.error("Failed to save state to Firestore: %s", e)
 
-# --- LTM (Long-Term Memory) Helpers ---
+#  LTM (Long-Term Memory) Helpers 
 
 def get_ltm_collection_ref(db: firestore.client, user_id: str):
     """Returns the collection reference for quiz attempts."""
@@ -134,7 +134,7 @@ def get_ltm_history(db: firestore.client, user_id: str, topic: str) -> List[Dict
         logger.error("Failed to fetch LTM history: %s", e)
         return []
 
-# --- SESSION STATE INITIALIZATION ---
+#  SESSION STATE INITIALIZATION 
 
 if 'curriculum' not in st.session_state:
     st.session_state.curriculum = CurriculumManager()
@@ -156,7 +156,7 @@ if 'quiz_answers' not in st.session_state:
 db = st.session_state.db_client
 user_id = st.session_state.user_id
 
-# --- UI COMPONENTS ---
+#  UI COMPONENTS 
 
 def render_sidebar():
     """Renders configuration, metrics, and audit log in the sidebar."""
@@ -400,7 +400,7 @@ def render_module_view():
                 else:
                     st.warning("No quiz questions generated for this module.")
 
-# --- MAIN APP EXECUTION ---
+#  MAIN APP EXECUTION 
 
 st.set_page_config(layout="wide")
 
