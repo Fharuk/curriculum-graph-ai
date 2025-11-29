@@ -61,7 +61,7 @@ To run the project locally (or within a GitHub Codespace):
 Step 1: Clone the Repository and Install System Dependencies
 
 # Clone the repository
-git clone [https://github.com/your-username/curriculum-graph-ai.git](https://github.com/your-username/curriculum-graph-ai.git)
+git clone [https://github.com/your-username/curriculum-graph-ai.git](https://github.com/fharuk/curriculum-graph-ai.git)
 cd curriculum-graph-ai
 
 # Install Graphviz system package (Mandatory for visualization)
