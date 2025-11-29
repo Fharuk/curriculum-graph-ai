@@ -60,7 +60,7 @@ class AgentCore:
             logger.error("LLM Generation Failed (Unknown Error): %s", e)
             return {"error": str(e)}
 
-    # --- AGENT 1: CURRICULUM ARCHITECT ---
+    #  CURRICULUM ARCHITECT 
     def architect_agent(self, topic: str, user_context: str) -> Dict[str, Any]:
         """Generates the initial dependency graph structure."""
         logger.info("Architect Agent activated for topic: %s", topic)
@@ -87,7 +87,7 @@ class AgentCore:
         """
         return self._generate_json(prompt)
 
-    # --- AGENT 2: CUSTOM TOOL - LATEX GENERATOR ---
+    #  CUSTOM TOOL - LATEX GENERATOR 
     def _latex_agent_task(self, node_label: str) -> Dict[str, str]:
         """Generates a relevant LaTeX equation or formula."""
         prompt = f"""
@@ -99,7 +99,7 @@ class AgentCore:
         """
         return self._generate_json(prompt)
 
-    # --- AGENT 3: EVALUATION - VERIFIER AGENT (Sequential) ---
+    # EVALUATION - VERIFIER AGENT (Sequential) 
     def _verifier_agent_task(self, lecture_content: str) -> Dict[str, Any]:
         """Sequential Agent that checks confidence (Hallucination Warning Metric)."""
         prompt = f"""
@@ -118,7 +118,7 @@ class AgentCore:
         """
         return self._generate_json(prompt)
 
-    # --- AGENT 4: PROFESSOR AGENT (LTM CONSUMER) ---
+    # AGENT 4: PROFESSOR AGENT (LTM CONSUMER)
     def _content_agent_task(self, node_label: str, ltm_history: List[Dict[str, Any]]) -> Dict[str, str]:
         """
         Generates lecture content, tailoring it based on the user's LTM.
@@ -147,7 +147,7 @@ class AgentCore:
         """
         return self._generate_json(prompt)
 
-    # --- AGENT 5: PROCTOR AGENT (10-Question Quiz) ---
+    # AGENT 5: PROCTOR AGENT (10-Question Quiz) 
     def _quiz_agent_task(self, node_label: str) -> Dict[str, Any]:
         """Generates the quiz questions and answer key (10 questions)."""
         prompt = f"""
@@ -164,7 +164,7 @@ class AgentCore:
         """
         return self._generate_json(prompt)
 
-    # --- PARALLEL EXECUTION FLOW (Core Capstone Demonstration) ---
+    #  PARALLEL EXECUTION FLOW (Core Capstone Demonstration) 
     def parallel_content_generation(self, node_label: str, ltm_history: List[Dict[str, Any]]) -> Dict[str, Any]:
         """
         Executes Professor, Proctor, and LaTeX agents in parallel, followed by the Verifier Agent sequentially.
@@ -198,7 +198,7 @@ class AgentCore:
             "verifier_audit": verifier_result
         }
 
-    # --- AGENT 6: EVALUATOR AGENT (A2A Protocol Consumer) ---
+    #  AGENT 6: EVALUATOR AGENT (A2A Protocol Consumer) 
     def evaluator_agent(self, node_label: str, user_score_percentage: float, verifier_audit: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         """
         Decides on remedial action after quiz failure. Consumes A2A signal from Verifier Agent.
